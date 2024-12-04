@@ -289,7 +289,7 @@ require('lazy').setup({
   -- after the plugin has been loaded:
   --  config = function() ... end
 
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -332,7 +332,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
+        { '<leader>c', group = '[C]ode',     mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
@@ -372,7 +372,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -463,11 +463,11 @@ require('lazy').setup({
     },
     config = true,
     keys = {
-      { '<leader>a', "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = 'Mark file with harpoon' },
-      { '<C-h>', "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", desc = 'Go to first harpoon mark' },
-      { '<C-j>', "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", desc = 'Go to second harpoon mark' },
-      { '<C-k>', "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", desc = 'Go to third harpoon mark' },
-      { '<C-l>', "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", desc = 'Go to forth harpoon mark' },
+      { '<leader>a',  "<cmd>lua require('harpoon.mark').add_file()<cr>",        desc = 'Mark file with harpoon' },
+      { '<C-h>',      "<cmd>lua require('harpoon.ui').nav_file(1)<cr>",         desc = 'Go to first harpoon mark' },
+      { '<C-j>',      "<cmd>lua require('harpoon.ui').nav_file(2)<cr>",         desc = 'Go to second harpoon mark' },
+      { '<C-k>',      "<cmd>lua require('harpoon.ui').nav_file(3)<cr>",         desc = 'Go to third harpoon mark' },
+      { '<C-l>',      "<cmd>lua require('harpoon.ui').nav_file(4)<cr>",         desc = 'Go to forth harpoon mark' },
       { '<leader>ha', "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = 'Show harpoon marks' },
     },
   },
@@ -517,7 +517,7 @@ require('lazy').setup({
       },
     },
   },
-  { 'Bilal2453/luvit-meta', lazy = true },
+  { 'Bilal2453/luvit-meta',     lazy = true },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -529,7 +529,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -995,11 +995,11 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.

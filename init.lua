@@ -453,9 +453,9 @@ require('lazy').setup({
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
 
+      local multigrep = require('custom.plugins.telescope.multigrep')
       vim.keymap.set('n', '<leader>sm', function()
-        local multigrep = require('custom.plugins.telescope.multigrep')
-        multigrep.live_multigrep { cwd = vim.fn.stdpath 'config' }
+        multigrep.live_multigrep { cwd = vim.uv.cwd() }
       end, { desc = '[S]earch [M]ultigrep files' })
     end,
   },

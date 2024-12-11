@@ -1,4 +1,4 @@
---[[
+--[[ini
 
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
@@ -452,55 +452,11 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
-    end,
-  },
 
-  { -- Harpoon
-    'ThePrimeagen/harpoon',
-    lazy = false,
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    config = true,
-    keys = {
-      { '<leader>a',  "<cmd>lua require('harpoon.mark').add_file()<cr>",        desc = 'Mark file with harpoon' },
-      { '<C-h>',      "<cmd>lua require('harpoon.ui').nav_file(1)<cr>",         desc = 'Go to first harpoon mark' },
-      { '<C-j>',      "<cmd>lua require('harpoon.ui').nav_file(2)<cr>",         desc = 'Go to second harpoon mark' },
-      { '<C-k>',      "<cmd>lua require('harpoon.ui').nav_file(3)<cr>",         desc = 'Go to third harpoon mark' },
-      { '<C-l>',      "<cmd>lua require('harpoon.ui').nav_file(4)<cr>",         desc = 'Go to forth harpoon mark' },
-      { '<leader>ha', "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = 'Show harpoon marks' },
-    },
-  },
-
-  { -- Undotree
-    'mbbill/undotree',
-    config = function()
-      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
-    end,
-  },
-
-  { -- Oil
-    'stevearc/oil.nvim',
-    opts = {},
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('oil').setup {
-        columns = { 'icon' },
-        keymaps = {
-          ['<C-h>'] = false,
-          ['<M-h>'] = 'actions.select_split',
-        },
-        view_options = {
-
-          show_hidden = true,
-        },
-      }
-
-      -- Open parent directory in current window
-      vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
-
-      -- Open parent directory in floating window
-      vim.keymap.set('n', '<space>-', require('oil').toggle_float)
+      vim.keymap.set('n', '<leader>sm', function()
+        local multigrep = require('custom.plugins.telescope.multigrep')
+        multigrep.live_multigrep { cwd = vim.fn.stdpath 'config' }
+      end, { desc = '[S]earch [M]ultigrep files' })
     end,
   },
 

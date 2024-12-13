@@ -51,4 +51,19 @@ return {
       vim.keymap.set('n', '<space>-', require('oil').toggle_float)
     end,
   },
+
+  {
+    "folke/zen-mode.nvim",
+    opts = {
+      window = {
+        width = 120,
+      },
+      plugins = {
+        enabled = true
+      }
+    },
+    --config = function()
+    --  vim.cmd([[autocmd VimEnter * :ZenMode]])
+    --end
+  },
 }

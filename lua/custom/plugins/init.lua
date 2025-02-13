@@ -11,11 +11,11 @@ return {
     },
     config = true,
     keys = {
-      { '<leader>a',  "<cmd>lua require('harpoon.mark').add_file()<cr>",        desc = 'Mark file with harpoon' },
-      { '<C-h>',      "<cmd>lua require('harpoon.ui').nav_file(1)<cr>",         desc = 'Go to first harpoon mark' },
-      { '<C-j>',      "<cmd>lua require('harpoon.ui').nav_file(2)<cr>",         desc = 'Go to second harpoon mark' },
-      { '<C-k>',      "<cmd>lua require('harpoon.ui').nav_file(3)<cr>",         desc = 'Go to third harpoon mark' },
-      { '<C-l>',      "<cmd>lua require('harpoon.ui').nav_file(4)<cr>",         desc = 'Go to forth harpoon mark' },
+      { '<leader>a', "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = 'Mark file with harpoon' },
+      { '<C-h>', "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", desc = 'Go to first harpoon mark' },
+      { '<C-j>', "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", desc = 'Go to second harpoon mark' },
+      { '<C-k>', "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", desc = 'Go to third harpoon mark' },
+      { '<C-l>', "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", desc = 'Go to forth harpoon mark' },
       { '<leader>ha', "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = 'Show harpoon marks' },
     },
   },
@@ -53,17 +53,32 @@ return {
   },
 
   {
-    "folke/zen-mode.nvim",
+    'folke/zen-mode.nvim',
     opts = {
       window = {
         width = 120,
       },
       plugins = {
-        enabled = true
-      }
+        enabled = true,
+      },
     },
     --config = function()
     --  vim.cmd([[autocmd VimEnter * :ZenMode]])
     --end
+  },
+  {
+    'nvim-telescope/telescope-project.nvim',
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      -- Load the extension without redefining the full Telescope setup
+      require('telescope').load_extension 'project'
+
+      -- Define keymap for opening the project switcher
+      vim.keymap.set('n', '<leader>sp', function()
+        require('telescope').extensions.project.project {}
+      end, { desc = '[S]earch [P]roject' })
+    end,
   },
 }

@@ -51,21 +51,6 @@ return {
       vim.keymap.set('n', '<space>-', require('oil').toggle_float)
     end,
   },
-
-  {
-    'folke/zen-mode.nvim',
-    opts = {
-      window = {
-        width = 120,
-      },
-      plugins = {
-        enabled = true,
-      },
-    },
-    --config = function()
-    --  vim.cmd([[autocmd VimEnter * :ZenMode]])
-    --end
-  },
   {
     'nvim-telescope/telescope-project.nvim',
     dependencies = {
@@ -80,5 +65,12 @@ return {
         require('telescope').extensions.project.project {}
       end, { desc = '[S]earch [P]roject' })
     end,
+  },
+  {
+    'shortcuts/no-neck-pain.nvim',
+    version = '*',
+    config = {
+      width = 130,
+    },
   },
 }

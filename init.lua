@@ -733,8 +733,8 @@ do
   --  See `:help lsp-config` for information about keys and how to configure
   ---@type table<string, vim.lsp.Config>
   local servers = {
-    -- clangd = {},
-    -- gopls = {},
+    clangd = {},
+    gopls = {},
     -- pyright = {},
     -- tsc = {},
     --
@@ -742,7 +742,8 @@ do
     --    https://github.com/mrcjkb/rustaceanvim
     --
     -- But for many setups, the LSP (`rust_analyzer`) will work just fine
-    -- rust_analyzer = {},
+    rust_analyzer = {},
+    jdtls = {},
 
     stylua = {}, -- Used to format Lua code
 
@@ -909,6 +910,7 @@ do
     },
 
     completion = {
+      menu = { auto_show = false },
       -- By default, you may press `<c-space>` to show the documentation.
       -- Optionally, set `auto_show = true` to show the documentation after a delay.
       documentation = { auto_show = false, auto_show_delay_ms = 500 },
@@ -1015,15 +1017,15 @@ do
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug'
-  -- require 'kickstart.plugins.indent_line'
-  -- require 'kickstart.plugins.lint'
+  require 'kickstart.plugins.indent_line'
+  require 'kickstart.plugins.lint'
   -- require 'kickstart.plugins.autopairs'
   -- require 'kickstart.plugins.neo-tree'
 
   -- NOTE: You can add your own plugins, configuration, etc. in `lua/custom/plugins/*.lua`.
   --
   -- For independent modules, uncomment the convenience loader:
-  -- require 'custom.plugins'
+  require 'custom.plugins'
   --
   -- `custom.plugins` automatically loads files from that directory, but their
   -- order is unspecified. If plugins depend on each other, keep them in the same
@@ -1033,6 +1035,52 @@ do
   -- require 'custom.plugins.colorscheme'
   -- require 'custom.plugins.ui'
   -- require 'custom.plugins.git'
+end
+
+-- ============================================================
+-- SECTION 10: USER CUSTOM OVERRIDES
+-- All personal modifications gathered here to prevent upstream merge conflicts
+-- ============================================================
+do
+  -- 1. Options & Preferences Overrides [source: 1]
+  vim.o.relativenumber = true
+  vim.opt.swapfile = false
+  vim.opt.backup = false
+  vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
+  vim.opt.incsearch = true
+  vim.opt.termguicolors = true
+  vim.opt.signcolumn = 'yes'
+  vim.opt.isfname:append '@-@'
+  vim.opt.colorcolumn = '120'
+
+  -- 2. Custom Keymaps Overrides [source: 1]
+  vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = 'Go to previous [D]iagnostic message' })
+  vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = 'Go to next [D]iagnostic message' })
+  vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+  vim.keymap.set('n', '<leader>sm', function()
+    require('custom.plugins.multigrep').live_multigrep()
+  end, { desc = '[S]earch [M]ulti Grep' })
+  vim.keymap.set('n', '<leader>se', function()
+    require('custom.plugins.multireplace').live_multireplace()
+  end, { desc = '[S]earch Multi Grep Replac[e]' })
+
+  -- 3. Custom Colorscheme (Replacing upstream TokyoNight) [source: 1]
+  -- vim.pack.add { gh 'yazeed1s/minimal.nvim' }
+  -- vim.cmd.colorscheme 'minimal'
+  vim.cmd.colorscheme 'elixir-bootlin'
+
+  -- 4. Additional Treesitter Parsers [source: 1]
+  require('nvim-treesitter').install { 'cpp', 'rust', 'toml', 'markdown', 'typescript', 'html', 'java', 'javascript', 'groovy' }
+
+  -- 5. Spellcheck & Markdown Autocmds [source: 1]
+  vim.api.nvim_set_hl(0, 'SpellBad', { underline = true, fg = '#e85a84', sp = 'NvimLightRed' })
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'markdown',
+    callback = function()
+      vim.opt_local.spell = true
+      vim.opt_local.spelllang = 'en_gb'
+    end,
+  })
 end
 
 -- The line beneath this is called `modeline`. See `:help modeline`

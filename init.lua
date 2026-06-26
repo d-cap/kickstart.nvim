@@ -1002,13 +1002,17 @@ do
   vim.keymap.set('n', '<leader>sm', function()
     require('custom.plugins.multigrep').live_multigrep()
   end, { desc = '[S]earch [M]ulti Grep' })
+  vim.keymap.set('n', '<leader>se', function()
+    require('custom.plugins.multireplace').live_multireplace()
+  end, { desc = '[S]earch Multi Grep Replac[e]' })
 
   -- 3. Custom Colorscheme (Replacing upstream TokyoNight) [source: 1]
-  vim.pack.add { gh 'yazeed1s/minimal.nvim' }
-  vim.cmd.colorscheme 'minimal'
+  -- vim.pack.add { gh 'yazeed1s/minimal.nvim' }
+  -- vim.cmd.colorscheme 'minimal'
+  vim.cmd.colorscheme 'elixir-bootlin'
 
   -- 4. Additional Treesitter Parsers [source: 1]
-  require('nvim-treesitter').install { 'cpp', 'rust', 'toml' }
+  require('nvim-treesitter').install { 'cpp', 'rust', 'toml', 'markdown', 'typescript', 'html', 'java', 'javascript', 'groovy' }
 
   -- 5. Spellcheck & Markdown Autocmds [source: 1]
   vim.api.nvim_set_hl(0, 'SpellBad', { underline = true, fg = '#e85a84', sp = 'NvimLightRed' })

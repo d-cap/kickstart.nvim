@@ -744,6 +744,7 @@ do
     -- But for many setups, the LSP (`rust_analyzer`) will work just fine
     rust_analyzer = {},
     jdtls = {},
+    lemminx = {},
 
     stylua = {}, -- Used to format Lua code
 
@@ -1074,11 +1075,16 @@ do
 
   -- 5. Spellcheck & Markdown Autocmds [source: 1]
   vim.api.nvim_set_hl(0, 'SpellBad', { underline = true, fg = '#e85a84', sp = 'NvimLightRed' })
+  vim.opt.spell = true
+  vim.opt.spelllang = 'en_gb'
   vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'markdown',
+    pattern = {
+      'help', 'terminal', 'TelescopePrompt', 'NvimTree', 'lazy', 'mason',
+      'gitignore', 'gitconfig', 'gitattributes',
+      'json', 'jsonc', 'yaml', 'toml', 'csv', 'log', 'dosini', 'conf',
+    },
     callback = function()
-      vim.opt_local.spell = true
-      vim.opt_local.spelllang = 'en_gb'
+      vim.opt_local.spell = false
     end,
   })
 end
